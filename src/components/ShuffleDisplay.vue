@@ -14,9 +14,10 @@ let cardCounter = 0;
 
 
 const deal = (shoe) => {
-	console.log(shoe)
 	hand.value.push(shoe[cardCounter])
 	cardCounter++
+	console.log(hand.value.reduce((a, b) => a + +b.value, 0))
+	console.log(hand.value.reduce((a, b) => a + +b.secondaryValue, 0))
 }
 const goToMain = () => {
 	emit('updateDisplay', "main")

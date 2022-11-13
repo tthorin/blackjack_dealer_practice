@@ -12,8 +12,9 @@ const generateCards = () => {
         cards.push({
           id: id,
           suit: suits[j],
-          value: values[k],
-          secondaryValue: values[k] === "A" ? 11 : null,
+          display: values[k],
+		  value: values[k] === "A" ? 1 : values[k],
+          secondaryValue: values[k] === "A" ? 11 : values[k],
           color: suits[j] === "♥" || suits[j] === "♦" ? "red" : "black",
         });
         id++;
