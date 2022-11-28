@@ -25,7 +25,7 @@ const cardShoe = props.shoe;
 	flex-wrap: wrap;
 	flex-direction: row;
 	/*width: 100vw; */
-	margin: 0.5em;
+	margin: 0em;
 	border: 5px solid green;
 	border-radius: 15px;
 	padding: 10px;

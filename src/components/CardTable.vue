@@ -99,7 +99,7 @@ onMounted(() => {
 	position: relative;
 	max-width: 100vw;
 	max-height: 100vh;
-	height: 90vh;
+	height: 85vh;
 	transition: transform 1s;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
