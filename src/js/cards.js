@@ -16,6 +16,7 @@ const generateCards = () => {
 		  value: values[k] === "A" ? 1 : values[k],
           secondaryValue: values[k] === "A" ? 11 : values[k],
           color: suits[j] === "♥" || suits[j] === "♦" ? "red" : "black",
+		  hand: "deck"
         });
         id++;
       }
@@ -33,4 +34,10 @@ const shuffleCards = (cards) => {
   }
 };
 
-export { generateCards, shuffleCards };
+const getShuffledCards = () => {
+	  const cards = generateCards();
+	  shuffleCards(cards);
+	  return cards;
+};
+
+export { getShuffledCards, generateCards, shuffleCards };

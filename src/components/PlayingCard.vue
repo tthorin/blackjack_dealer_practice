@@ -8,6 +8,7 @@ defineProps({
 	<div class="card" :class="card.color">
 		<span class="card_suit card_suit_top">{{ card.suit }}</span>
 		<span class="card_value">{{ card.display }}</span>
+		<!--<span>{{card.id}}</span> This is just for debugging-->
 		<span class="card_suit card_suit_bottom">{{ card.suit }}</span>
 	</div>
 </template>

@@ -1,26 +1,28 @@
 <script setup>
-import { ref } from 'vue'
 import { shuffleCards } from '../js/cards'
 import cardVue from './PlayingCard.vue';
 
 const props = defineProps({
 	shoe: Object,
-	display: String
+	display: String,
+	hand: Object
 })
-const emit = defineEmits(['updateShoe', 'updateDisplay'])
+const emit = defineEmits(['updateShoe', 'updateDisplay',"updateHand"])
 const shuffleSpeed = "shuffleMedium"
-const hand = ref([])
 let cardCounter = 0;
 
 
 const deal = (shoe) => {
 	hand.value.push(shoe[cardCounter])
 	cardCounter++
-	console.log(hand.value.reduce((a, b) => a + +b.value, 0))
-	console.log(hand.value.reduce((a, b) => a + +b.secondaryValue, 0))
+// 	console.log(hand.value.reduce((a, b) => a + +b.value, 0))
+// 	console.log(hand.value.reduce((a, b) => a + +b.secondaryValue, 0))
 }
 const goToMain = () => {
 	emit('updateDisplay', "main")
+}
+const dealCard = () => {
+	emit('updateHand')
 }
 </script>
 
@@ -28,7 +30,7 @@ const goToMain = () => {
 	<div>
 		<button @click="goToMain">Go to main page</button>
 		<button @click="shuffleCards(shoe)">Shuffle cards</button>
-		<button @click="deal(shoe)">Deal</button>
+		<button @click="dealCard">Deal</button>
 		<div class="card-container">
 			<cardVue v-if="hand.length > 0" v-for="card in hand" :card="card" :key="'cc' + card.id" />
 		</div>
