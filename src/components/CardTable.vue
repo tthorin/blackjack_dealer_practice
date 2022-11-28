@@ -21,7 +21,7 @@ const handEleven = ref([])
 const handDealer = ref([])
 const dealtCards = ref([])
 
-const handsStrings = ["hand-one", "hand-two", "hand-three", "hand-four", "hand-five", "hand-six", "hand-seven", "hand-eigth", "hand-nine", "hand-ten", "hand-eleven", "hand-dealer", "card-shoe"]
+const handsStrings = ["hand-one", "hand-two", "hand-three", "hand-four", "hand-five", "hand-six", "hand-seven", "hand-eight", "hand-nine", "hand-ten", "hand-eleven", "hand-dealer", "card-shoe"]
 const hands = [handOne, handTwo, handThree, handFour, handFive, handSix, handSeven, handEight, handNine, handTen, handEleven, handDealer, cardShoe]
 
 let handCounter = 0
@@ -83,8 +83,8 @@ onMounted(() => {
 
 <template>
 	<!-- <button @click="dealCard" :disabled="cardCounter>=cardShoe.length">Deal</button> -->
-	<Timer :shouldRun="!showBeginButton"/>
 	<div class="card-table">
+		<Timer class="training-timer-container" :shouldRun="!showBeginButton"/>
 		<CardHand v-for="(hand, index) in hands" :hand="hand" :shoe="cardShoe" :key="`hand-${index}`"
 			:class="isActiveHand(hand) ? `currently-active-hand ${handsStrings[index]}` : `${handsStrings[index]}`" />
 
@@ -103,8 +103,9 @@ onMounted(() => {
 	transition: transform 1s;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(4, 1fr);
+	grid-template-rows: 4em repeat(4, 1fr);
 	grid-template-areas:
+		"btn-area . timer-area . ."	
 		"hand-four hand-five hand-six hand-seven hand-eight"
 		"hand-three active-hand active-hand active-hand hand-nine"
 		"hand-two active-hand active-hand active-hand hand-ten"
@@ -175,6 +176,9 @@ onMounted(() => {
 	position: absolute;
 	bottom: 0%;
 	left: 50%;
+}
+.training-timer-container{
+	grid-area: timer-area;
 }
 
 .shuffleMedium-move {

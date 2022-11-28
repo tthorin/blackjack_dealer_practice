@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { shuffleCards } from '../js/cards'
 import cardVue from './PlayingCard.vue';
 
@@ -22,7 +23,7 @@ const goToMain = () => {
 	emit('updateDisplay', "main")
 }
 const dealCard = () => {
-	emit('updateHand')
+	emit('updateHand', hand.value)
 }
 </script>
 
@@ -30,10 +31,6 @@ const dealCard = () => {
 	<div>
 		<button @click="goToMain">Go to main page</button>
 		<button @click="shuffleCards(shoe)">Shuffle cards</button>
-		<button @click="dealCard">Deal</button>
-		<div class="card-container">
-			<cardVue v-if="hand.length > 0" v-for="card in hand" :card="card" :key="'cc' + card.id" />
-		</div>
 		<transition-group tag="div" :name="shuffleSpeed" class="card-container">
 			<cardVue v-for="card in shoe" :card="card" :key="card.id" />
 		</transition-group>
