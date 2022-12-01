@@ -24,6 +24,7 @@ const stop = () => {
 
 watch(() => props.shouldRun, (newVal) => {
 	if (newVal) {
+		time.value = 0
 		start()
 	} else {
 		stop()

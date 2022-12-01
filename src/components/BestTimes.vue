@@ -27,6 +27,7 @@ const getTimeString = (time) => {
 	<div class="best-times">
 		<h1>UNDER CONSTRUCTION</h1>
 		<h2>Best Times</h2>
+		<h3>Dealer Only:</h3>
 		<div class="best-times-list">
 			<ul >
 				<li v-for="(time,index) in bestTimes" :key="`time-${index}`" class="best-time">
