@@ -26,7 +26,9 @@ defineProps({
 	padding: 5px;
 	margin: 5px;
 }
-
+span{
+	margin:0;
+}
 .red {
 	color: red;
 }
@@ -50,5 +52,17 @@ defineProps({
 .card-small-bottom {
 	align-self: flex-end;
 	transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+	
+
+	.card-small-suit {
+		font-size: 0.8em;
+	}
+
+	.card-small-value {
+		font-size: 1.2em;
+	}
 }
 </style>

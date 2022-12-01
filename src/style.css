@@ -69,6 +69,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.btn-big {
+  font-size: 2em;
+  padding: 0.8em 1.6em;
+}
+
 .card {
   padding: 2em;
 }
@@ -80,6 +85,9 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
 }
 
 @media (prefers-color-scheme: light) {

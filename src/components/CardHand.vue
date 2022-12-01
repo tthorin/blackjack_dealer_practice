@@ -26,11 +26,12 @@ const cardShoe = props.shoe;
 	flex-direction: row;
 	/*width: 100vw; */
 	margin: 0em;
-	border: 5px solid green;
+	border: 5px solid antiquewhite;
 	border-radius: 15px;
 	padding: 10px;
 	min-height: 125px;
 	min-width: 215px;
+	transition: all 0.5s ease-in-out;
 }
 .addCard-move,
 .addCard-leave-active,

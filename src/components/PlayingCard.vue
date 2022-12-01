@@ -51,4 +51,17 @@ defineProps({
 	align-self: flex-end;
 	transform: rotate(180deg);
 }
+@media (max-width: 768px) {
+	.card {
+		width: 55px;
+		height: 80px;
+		padding: 4px;
+	}
+	.card_suit{
+		font-size: 1.5em;
+	}
+	.card_value{
+		font-size: 2em;
+	}
+}
 </style>

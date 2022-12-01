@@ -4,7 +4,7 @@ import { ref, computed, watch } from 'vue'
 const props = defineProps({
 	shouldRun: Boolean
 })
-
+const emit = defineEmits(['timeAtStop'])
 const running = ref(false)
 const time = ref(0)
 const interval = ref(null)
@@ -18,20 +18,8 @@ const start = () => {
 
 const stop = () => {
 	running.value = false
+	emit('timeAtStop', time.value)
 	clearInterval(interval.value)
-}
-
-const reset = () => {
-	stop()
-	time.value = 0
-}
-
-const toggle = () => {
-	if (running.value) {
-		stop()
-	} else {
-		start()
-	}
 }
 
 watch(() => props.shouldRun, (newVal) => {

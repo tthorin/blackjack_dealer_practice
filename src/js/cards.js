@@ -1,8 +1,7 @@
-const generateCards = () => {
+const generateCards = (numberOfDecks = 3) => {
   //♥♣♦♠
   const suits = ["♥", "♣", "♦", "♠"];
   const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const numberOfDecks = 3;
   const cards = [];
   let id = 0;
 
@@ -13,10 +12,10 @@ const generateCards = () => {
           id: id,
           suit: suits[j],
           display: values[k],
-		  value: values[k] === "A" ? 1 : values[k],
+          value: values[k] === "A" ? 1 : values[k],
           secondaryValue: values[k] === "A" ? 11 : values[k],
           color: suits[j] === "♥" || suits[j] === "♦" ? "red" : "black",
-		  hand: "deck"
+          hand: "deck",
         });
         id++;
       }
@@ -34,10 +33,11 @@ const shuffleCards = (cards) => {
   }
 };
 
-const getShuffledCards = () => {
-	  const cards = generateCards();
-	  shuffleCards(cards);
-	  return cards;
+/// Path: src\js\game.js
+const getShuffledCards = (numberOfDecks) => {
+  const cards = generateCards(numberOfDecks);
+  shuffleCards(cards);
+  return cards;
 };
 
 export { getShuffledCards, generateCards, shuffleCards };

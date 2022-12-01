@@ -46,4 +46,5 @@ const dealCard = () => {
 .shuffleMedium-move {
 	transition: transform 1s;
 }
+
 </style>
