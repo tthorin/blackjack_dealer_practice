@@ -119,7 +119,6 @@ const reset = () => {
 
 	<span @click="showInstructions = !showInstructions" class="instructions-button">{{ showInstructions ? "←" : "?"
 	}}</span>
-	<font-awesome-icon icon="fa-regular fa-circle-question" />
 	<div v-if="!showInstructions">
 		<Timer :shouldRun="timerShouldRun" :shouldReset="resetTimer" @timeAtStop="(time) => updateBestTimes(time)"
 			@timerReset="() => resetTimer = false" />
