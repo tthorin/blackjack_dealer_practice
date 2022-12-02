@@ -2,9 +2,10 @@
 import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
-	shouldRun: Boolean
+	shouldRun: Boolean,
+	shouldReset: Boolean
 })
-const emit = defineEmits(['timeAtStop'])
+const emit = defineEmits(['timeAtStop','timerReset'])
 const running = ref(false)
 const time = ref(0)
 const interval = ref(null)
@@ -21,6 +22,11 @@ const stop = () => {
 	emit('timeAtStop', time.value)
 	clearInterval(interval.value)
 }
+const reset = () => {
+	console.log("timer component reset got called")
+	time.value = 0
+	emit('timerReset')
+}
 
 watch(() => props.shouldRun, (newVal) => {
 	if (newVal) {
@@ -28,6 +34,11 @@ watch(() => props.shouldRun, (newVal) => {
 		start()
 	} else {
 		stop()
+	}
+})
+watch(() => props.shouldReset, (newVal) => {
+	if (newVal) {
+		reset()
 	}
 })
 const tenths = computed(() => {
