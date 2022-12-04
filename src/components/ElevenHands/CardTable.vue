@@ -1,9 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getShuffledCards } from '../js/cards'
+import { getShuffledCards } from '../../js/cards'
 import CardHand from './CardHand.vue';
 import ActiveHand from './ActiveHand.vue';
-import Timer from './Timer.vue';
+import Timer from '../Timer.vue';
 
 const props = defineProps({
 	display: String
@@ -44,7 +44,7 @@ const dealCard = (i) => {
 		hands[dealTo].value.push(card)
 		dealTo++
 		cardCounter.value++
-		if (dealTo > handsStrings.length - 2) {
+		if ((dealTo>handsStrings.length-3 && cardCounter.value==23)||dealTo > handsStrings.length - 2) {
 			dealTo = 0
 		}
 		currentHand = handsStrings[dealTo]
@@ -83,7 +83,7 @@ const handleBeginOrReturn = () => {
 
 
 onMounted(() => {
-	const numberOfStartingCards = 24
+	const numberOfStartingCards = 23
 	const delayInMs = 700
 	for (let i = 0; i < numberOfStartingCards; i++) {
 		dealCard(delayInMs * i)

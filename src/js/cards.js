@@ -1,8 +1,11 @@
+import cardImages from "./cardImages";
+
 const generateCards = (numberOfDecks = 3) => {
   //♥♣♦♠
   const suits = ["♥", "♣", "♦", "♠"];
   const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9"];
   const cards = [];
+  const cardsInDeck = suits.length * values.length;
   let id = 0;
 
   for (let i = 0; i < numberOfDecks; i++) {
@@ -16,6 +19,7 @@ const generateCards = (numberOfDecks = 3) => {
           secondaryValue: values[k] === "A" ? 11 : values[k],
           color: suits[j] === "♥" || suits[j] === "♦" ? "red" : "black",
           hand: "deck",
+		  image: cardImages[id%cardsInDeck],
         });
         id++;
       }

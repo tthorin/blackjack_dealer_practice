@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onUpdated,onMounted } from 'vue';
-import PlayingCard from './PlayingCard.vue';
+import PlayingCard from '../PlayingCard.vue';
 
 const props = defineProps({
 	activeHand: Object
@@ -85,7 +85,12 @@ onMounted(() => {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
+	position: relative;
+	/*width: 100%;*/
+	margin-right: -70px;
+}
+.active-cards > :nth-child(1n+1) {
+	margin-left: -70px;
 }
 
 input {

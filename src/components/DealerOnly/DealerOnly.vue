@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed, watchEffect, watch } from 'vue';
-import { getShuffledCards } from '../js/cards'
-import PlayingCard from './PlayingCard.vue';
-import Timer from './Timer.vue';
+import { getShuffledCards } from '../../js/cards'
+import PlayingCard from '../PlayingCard.vue';
+import Timer from '../Timer.vue';
 import DealerOnlyInstructions from './DealerOnlyInstructions.vue';
 
 const emit = defineEmits(['updateDisplay'])
@@ -71,16 +71,25 @@ const checkShouldDealOrReset = () => {
 			gameOver.value = true
 		}
 		else {
-			hand.value = [shoe.pop(), shoe.pop()]
+			setTimeout(() => {
+				hand.value = [shoe.pop(), shoe.pop()]
+			}, 300);
 		}
 	} else {
-		dealCard()
+		setTimeout(() => {
+			dealCard()
+		}, 300);
 	}
 }
-const checkAnswer = (answer) => {
+const checkAnswer = (e,answer) => {
 	if (!timerShouldRun.value) {
 		timerShouldRun.value = true
 	}
+	let btn = e.target
+	btn.classList.add("btn-guess-clicked")
+	setTimeout(() => {
+		btn.classList.remove("btn-guess-clicked")
+	}, 250);
 
 	if (answer === cardTotalTwo.value.answer) {
 		checkShouldDealOrReset()
@@ -124,10 +133,11 @@ const reset = () => {
 			@timerReset="() => resetTimer = false" />
 		<div v-if="!gameOver" class="dealer-only-container">
 			<div class="dealer-only-card-hand">
-				<PlayingCard v-for="card in hand" :card="card" :key="card.id" />
+				<!--<PlayingCard v-for="card in hand" :card="card" :key="card.id" />-->
+				<img v-for="card in hand" :card="card" :key="card.id" :src="card.image" />
 			</div>
 			<button v-if="() => hand.value.length > 1" v-for="answer in answers" :key="`guess-button-${answer.value}`"
-				@click="checkAnswer(answer.value)" class="btn-guess">{{ answer.display }}</button>
+				@click="(e)=>checkAnswer(e,answer.value)" class="btn-guess">{{ answer.display }}</button>
 		</div>
 		<div v-else class="game-over-container">
 			<h1>Game Over</h1>
@@ -181,6 +191,10 @@ const reset = () => {
 	margin-top: 1em;
 }
 
+.dealer-only-card-hand>:nth-child(1n+2) {
+	margin-left: -5em;
+}
+
 .btn-guess {
 	background-color: #fff;
 	border: 1px solid #000;
@@ -188,20 +202,15 @@ const reset = () => {
 	color: #000;
 	cursor: pointer;
 	font-weight: 700;
-	transition: all 0.4s ease-in-out;
+	transition: all 0.1s ease-in-out;
 	width: 120px;
 	height: 120px;
 	font-size: 2em;
 	text-align: center;
 	padding: 0.5em;
 	margin: 1em;
-}
-
-.btn-guess:hover {
-	/*background-color: #000;
-	color: #fff;
-	border-color: #646cff;
-	transition: all 0.3s ease-in-out;*/
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 .btn-guess:active {
@@ -209,10 +218,25 @@ const reset = () => {
 	color: #fff;
 	border-color: #646cff;
 	transform: scale(1.1);
-	transition: all 0.2s;
+}
+.btn-guess-clicked {
+	background-color: #646cff;
+	color: #fff;
+	border-color: #646cff;
+	transform: scale(1.1);
+}
+
+img {
+	margin: 10px;
 }
 
 @media (max-width: 768px) {
+	img {
+		height: calc(333*0.5px);
+		width: calc(234*0.5px);
+
+	}
+
 	.btn-guess {
 		width: 25vw;
 		height: 25vw;
@@ -224,7 +248,9 @@ const reset = () => {
 		color: #fff;
 		border-color: #646cff;
 		transform: scale(1.1);
-		transition: all 0.2s;
+		transition: all 0.1s;
 	}
 }
+
+@media (max-width: 768px) {}
 </style>

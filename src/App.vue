@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { generateCards, getShuffledCards } from './js/cards'
 import ShuffleDisplay from './components/ShuffleDisplay.vue';
-import CardTable from './components/CardTable.vue';
-import BestTimes from './components/BestTimes.vue';
-import DealerOnly from './components/DealerOnly.vue';
+import CardTable from './components/ElevenHands/CardTable.vue';
+import BestTimes from './components/BestTimes/BestTimes.vue';
+import DealerOnly from './components/DealerOnly/DealerOnly.vue';
 import bestTimes from './js/bestTimes';
 
 
@@ -14,7 +14,6 @@ const best = getBestTimes()
 
 function getBestTimes() {
 	let value = localStorage.getItem("bestTimes")
-	console.log(value)
 	if (!value) {
 		localStorage.setItem("bestTimes", JSON.stringify(bestTimes))
 		value = localStorage.getItem("bestTimes")
@@ -26,10 +25,10 @@ function getBestTimes() {
 
 <template>
 	<div v-if="display === 'main'" class="main-display">
-		<button class="btn-main" @click="display = 'other'">View card shuffling</button>
 		<button class="btn-main" @click="display = 'table'">11 hands + dealer practice</button>
 		<button class="btn-main" @click="display = 'dealer-practice'">Dealer only (mobile friendly)</button>
 		<button class="btn-main" @click="display = 'best-times'">Your best times</button>
+		<button class="btn-main" @click="display = 'other'">View card shuffling</button>
 	</div>
 
 	<ShuffleDisplay v-else-if="display === 'other'" :shoe="shoe" :display="display"

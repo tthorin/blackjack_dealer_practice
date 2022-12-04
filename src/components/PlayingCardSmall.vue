@@ -6,25 +6,30 @@ defineProps({
 
 <template>
 	<div class="card-small" :class="card.color">
-		<span class="card-small-suit card-small-suit-top">{{ card.suit }}</span>
+		<!--<span class="card-small-suit card-small-suit-top">{{ card.suit }}</span>
 		<span class="card-small-value">{{ card.display }}</span>
-		<!--<span>{{card.id}}</span> This is just for debugging-->
-		<span class="card-small-suit card-small-bottom">{{ card.suit }}</span>
+		<span>{{card.id}}</span> This is just for debugging
+		<span class="card-small-suit card-small-bottom">{{ card.suit }}</span>-->
+		<img class="card-small-img" :src="card.image"/>
 	</div>
 </template>
 
 <style scoped>
 .card-small {
-	width: 50px;
-	height: 80px;
-	border-radius: 5px;
-	background-color: white;
+	width: 58px;
+	height: 83px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px;
+	padding: 0px;
 	margin: 5px;
+}
+.card-small > img{
+	width: 100%;
+	height: 100%;
+	border: 2px solid black;
+	border-radius: 5px;
 }
 span{
 	margin:0;
@@ -53,10 +58,11 @@ span{
 	align-self: flex-end;
 	transform: rotate(180deg);
 }
+.shoe-card img{
+	display: none;
+}
 
 @media (max-width: 768px) {
-	
-
 	.card-small-suit {
 		font-size: 0.8em;
 	}

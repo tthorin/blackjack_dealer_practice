@@ -6,25 +6,30 @@ defineProps({
 
 <template>
 	<div class="card" :class="card.color">
-		<span class="card_suit card_suit_top">{{ card.suit }}</span>
+		<img class="card-img" :src="card.image"/>
+		<!--<span class="card_suit card_suit_top">{{ card.suit }}</span>
 		<span class="card_value">{{ card.display }}</span>
-		<!--<span>{{card.id}}</span> This is just for debugging-->
-		<span class="card_suit card_suit_bottom">{{ card.suit }}</span>
+		<span>{{card.id}}</span> This is just for debugging
+		<span class="card_suit card_suit_bottom">{{ card.suit }}</span>-->
 	</div>
 </template>
 
 <style scoped>
 .card {
-	width: 100px;
-	height: 150px;
+	width: 119px;
+	height: 169px;
 	border-radius: 10px;
-	background-color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px;
+	padding: 0px;
 	margin: 10px;
+	border: 2px solid black;
+}
+.card>img{
+	width: 100%;
+	height: 100%;
 }
 
 .red {

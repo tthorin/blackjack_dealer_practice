@@ -32,7 +32,8 @@ const dealCard = () => {
 		<button @click="goToMain">Go to main page</button>
 		<button @click="shuffleCards(shoe)">Shuffle cards</button>
 		<transition-group tag="div" :name="shuffleSpeed" class="card-container">
-			<cardVue v-for="card in shoe" :card="card" :key="card.id" />
+			<!--<cardVue v-for="card.imgage in shoe" :card="card" :key="card.id" />-->
+			<img v-for="card in shoe"  :key="card.id" :src="card.image"/>
 		</transition-group>
 	</div>
 </template>
@@ -46,5 +47,9 @@ const dealCard = () => {
 .shuffleMedium-move {
 	transition: transform 1s;
 }
-
+img{
+	width: 117px;
+	height: 166.5px;
+	margin: 5px;
+}
 </style>
