@@ -16,7 +16,6 @@ const attemptTwo = ref('')
 const getAnswerOne = (cards) => {
 	let answer = 0
 	if (props.backwards) {
-		console.log("im doing answerOne Backwards")
 		let numberOfAces = 0
 		cards.forEach(card => {
 			if (card.secondaryValue === 11) {
@@ -57,15 +56,8 @@ const resetInputs = () => {
 	attemptTwo.value = ''
 	inputOne.focus()
 }
-const adjustForBackwardsIfNeeded = (areWeGoingBackwards, answer) => {
-	console.log('adjustForBackwardsIfNeeded, backwards is: ', areWeGoingBackwards)
-	if (answerOne.value !== answerTwo.value && areWeGoingBackwards) {
-		answerOne.value = answerTwo.value
-	}
-}
+
 onUpdated(() => {
-	// answerOne.value = props.activeHand.reduce((a, b) => a + +b.value, 0)
-	// answerTwo.value = getAnswerTwo(props.activeHand)
 	if (answerOne.value === +attemptOne.value && props.activeHand.length === 2 && (answerTwo.value === answerOne.value || answerTwo.value === +attemptTwo.value)) {
 		emit('correctAnswer', "deal")
 		resetInputs()
@@ -75,7 +67,6 @@ onUpdated(() => {
 	}
 })
 onMounted(() => {
-	console.log("mounted")
 	const inputOne = document.getElementById('answer-one-input')
 	attemptOne.value = ''
 	inputOne.focus()
@@ -114,6 +105,7 @@ onMounted(() => {
 
 .active-cards {
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: center;
 	align-items: center;
 	position: relative;
@@ -121,8 +113,19 @@ onMounted(() => {
 	margin-right: -70px;
 }
 
-.active-cards> :nth-child(1n+1) {
+.active-cards> :nth-child(1) {
 	margin-left: -70px;
+	margin-top: -35px;
+	z-index: 1;
+}
+.active-cards> :nth-child(2) {
+	margin-left: -70px;
+	z-index: 2;
+}
+.active-cards> :nth-child(3) {
+	margin-left: -70px;
+	margin-bottom: -35px;
+	z-index: 3;
 }
 
 input {
