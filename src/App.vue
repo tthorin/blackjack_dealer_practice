@@ -57,8 +57,8 @@ function getBestTimes() {
 	cursor: pointer;
 	font-weight: 700;
 	transition: all 0.3s ease-in-out;
-	width: 20vw;
-	height: 20vw;
+	width: 18vw;
+	height: 18vw;
 	font-size: 2vw;
 }
 
