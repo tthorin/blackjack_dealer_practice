@@ -34,6 +34,7 @@ let activeHand = ref(hands[handCounter].value)
 let dealTo = 0
 let currentHand = handsStrings[dealTo]
 let cardCounter = ref(0)
+const backwards = ref(false)
 
 let beginOrReturnBtnMsg = ref("Begin")
 
@@ -53,13 +54,22 @@ const dealCard = (i) => {
 		, i)
 }
 const handleCorrectAnswer = (arg) => {
-	console.log(handCounter)
 	if (arg === "deal") {
 		dealCard()
 	}
-	else if (handCounter === 11) {
+	else if(handCounter === 0 && backwards.value){
 		showActiveHand.value = false
 		showBeginButton.value = true
+	}
+	else if (backwards.value){
+		handCounter--
+		activeHand.value = hands[handCounter].value
+	}
+
+	else if (handCounter === 10) {
+		if(!backwards.value){
+			backwards.value = true
+		}
 	}
 	else {
 		handCounter++
@@ -70,7 +80,7 @@ const handleCorrectAnswer = (arg) => {
 const isActiveHand = (hand) => hand.value === activeHand.value
 
 const handleBeginOrReturn = () => {
-	if (handCounter === 0) {
+	if (handCounter === 0 && !backwards.value) {
 		showBeginButton.value = false
 		showActiveHand.value = true
 		beginOrReturnBtnMsg.value = "Done"
@@ -93,6 +103,14 @@ onMounted(() => {
 	}, delayInMs * numberOfStartingCards)
 })
 
+const getClassForHand = (hand, index) => {
+	let classString = ""
+	classString += handsStrings[index]
+	if (isActiveHand(hand)) {
+		classString += backwards.value? " active-hand backwards" : " active-hand"
+	}
+	return classString
+}
 </script>
 
 <template>
@@ -102,8 +120,8 @@ onMounted(() => {
 		<button @click="emit('updateDisplay', 'main')" key="card-table-back-button">Back to main</button>
 		<Timer class="training-timer-container" :shouldRun="!showBeginButton" key="card-table-timer" />
 			<CardHand v-for="(hand, index) in hands" :hand="hand" :shoe="cardShoe" :key="`hand-${index}`"
-				:class="isActiveHand(hand) ? `currently-active-hand ${handsStrings[index]}` : `${handsStrings[index]}`" />
-		<ActiveHand v-if="showActiveHand" :activeHand="activeHand" class="active-hand"
+				:class="getClassForHand(hand,index)" />
+		<ActiveHand v-if="showActiveHand" :activeHand="activeHand" :backwards="backwards" class="active-hand"
 			@correctAnswer="handleCorrectAnswer" :key="`active-${handsStrings[handCounter]}`" />
 		<button v-if="showBeginButton" @click="handleBeginOrReturn" class="active-hand btn-big"
 			key="card-table-bgein-button">{{ beginOrReturnBtnMsg }}</button>
@@ -202,8 +220,12 @@ onMounted(() => {
 
 .currently-active-hand {
 	border-color: red;
-	box-shadow: 0px 0px 15px 15px rgb(143, 7, 7);
 	transition: all 0.5s ease-in-out;
+	scale: 1.1;
+}
+.backwards {
+	transform: rotate(180deg);
+	border-color: chartreuse;
 }
 
 .card-table-trans-move {
