@@ -88,8 +88,8 @@ onMounted(() => {
 			<PlayingCard v-for="card in props.activeHand" :card="card" :key="card.id" />
 		</div>
 		<div class="active-inputs">
-			<input v-model="attemptOne" id="answer-one-input" />
-			<input v-if="answerOne !== answerTwo && answerTwo <= 21" v-model="attemptTwo" />
+			<input v-model="attemptOne" id="answer-one-input" type="tel"/>
+			<input v-if="answerOne !== answerTwo && answerTwo <= 21" v-model="attemptTwo" type="tel"/>
 		</div>
 	</div>
 </template>
