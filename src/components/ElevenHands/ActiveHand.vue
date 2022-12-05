@@ -16,7 +16,6 @@ const attemptTwo = ref('')
 const getAnswerOne = (cards) => {
 	let answer = 0
 	if (props.backwards) {
-		console.log("im doing answerOne Backwards")
 		let numberOfAces = 0
 		cards.forEach(card => {
 			if (card.secondaryValue === 11) {
@@ -57,15 +56,8 @@ const resetInputs = () => {
 	attemptTwo.value = ''
 	inputOne.focus()
 }
-const adjustForBackwardsIfNeeded = (areWeGoingBackwards, answer) => {
-	console.log('adjustForBackwardsIfNeeded, backwards is: ', areWeGoingBackwards)
-	if (answerOne.value !== answerTwo.value && areWeGoingBackwards) {
-		answerOne.value = answerTwo.value
-	}
-}
+
 onUpdated(() => {
-	// answerOne.value = props.activeHand.reduce((a, b) => a + +b.value, 0)
-	// answerTwo.value = getAnswerTwo(props.activeHand)
 	if (answerOne.value === +attemptOne.value && props.activeHand.length === 2 && (answerTwo.value === answerOne.value || answerTwo.value === +attemptTwo.value)) {
 		emit('correctAnswer', "deal")
 		resetInputs()
@@ -75,7 +67,6 @@ onUpdated(() => {
 	}
 })
 onMounted(() => {
-	console.log("mounted")
 	const inputOne = document.getElementById('answer-one-input')
 	attemptOne.value = ''
 	inputOne.focus()

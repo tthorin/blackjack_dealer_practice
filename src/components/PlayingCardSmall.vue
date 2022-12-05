@@ -6,10 +6,6 @@ defineProps({
 
 <template>
 	<div class="card-small" :class="card.color">
-		<!--<span class="card-small-suit card-small-suit-top">{{ card.suit }}</span>
-		<span class="card-small-value">{{ card.display }}</span>
-		<span>{{card.id}}</span> This is just for debugging
-		<span class="card-small-suit card-small-bottom">{{ card.suit }}</span>-->
 		<img class="card-small-img" :src="card.image"/>
 	</div>
 </template>

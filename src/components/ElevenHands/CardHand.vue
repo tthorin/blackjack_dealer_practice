@@ -50,7 +50,7 @@ const cardShoe = props.shoe;
 .addCard-move,
 .addCard-leave-active,
 .addCard-enter-active {
-	transition: all 1s ease;
+	transition: all 0.9s;
 }
 .addCard-enter-from,
 .addCard-leave-to {
@@ -61,10 +61,7 @@ const cardShoe = props.shoe;
 	display: grid;
 
 }
-.shoe-card img{
-	display: none;
-	height: 19px;
-}
+
 .shoe-card{
 	grid-column: 1;
 	grid-row: 1;
@@ -73,7 +70,7 @@ const cardShoe = props.shoe;
 	background-image: url('../../assets/red_back.svg');
 	background-size: auto 82px;
 	width:58px;
-	scale: 2;
+	/*scale: 2;*/
 }
 
 </style>

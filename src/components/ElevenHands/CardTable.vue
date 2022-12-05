@@ -45,7 +45,7 @@ const dealCard = (i) => {
 		hands[dealTo].value.push(card)
 		dealTo++
 		cardCounter.value++
-		if ((dealTo>handsStrings.length-3 && cardCounter.value==23)||dealTo > handsStrings.length - 2) {
+		if ((dealTo > handsStrings.length - 3 && cardCounter.value == 23) || dealTo > handsStrings.length - 2) {
 			dealTo = 0
 		}
 		currentHand = handsStrings[dealTo]
@@ -57,17 +57,17 @@ const handleCorrectAnswer = (arg) => {
 	if (arg === "deal") {
 		dealCard()
 	}
-	else if(handCounter === 0 && backwards.value){
+	else if (handCounter === 0 && backwards.value) {
 		showActiveHand.value = false
 		showBeginButton.value = true
 	}
-	else if (backwards.value){
+	else if (backwards.value) {
 		handCounter--
 		activeHand.value = hands[handCounter].value
 	}
 
 	else if (handCounter === 10) {
-		if(!backwards.value){
+		if (!backwards.value) {
 			backwards.value = true
 		}
 	}
@@ -94,10 +94,12 @@ const handleBeginOrReturn = () => {
 
 onMounted(() => {
 	const numberOfStartingCards = 23
-	const delayInMs = 700
+	const delayInMs = 1100
+	
 	for (let i = 0; i < numberOfStartingCards; i++) {
-		dealCard(delayInMs * i)
+		dealCard(delayInMs * i )
 	}
+
 	setTimeout(() => {
 		showBeginButton.value = true
 	}, delayInMs * numberOfStartingCards)
@@ -107,7 +109,7 @@ const getClassForHand = (hand, index) => {
 	let classString = ""
 	classString += handsStrings[index]
 	if (isActiveHand(hand)) {
-		classString += backwards.value? " active-hand backwards" : " active-hand"
+		classString += backwards.value ? " active-hand backwards" : " active-hand"
 	}
 	return classString
 }
@@ -119,8 +121,8 @@ const getClassForHand = (hand, index) => {
 	<div class="card-table">
 		<button @click="emit('updateDisplay', 'main')" key="card-table-back-button">Back to main</button>
 		<Timer class="training-timer-container" :shouldRun="!showBeginButton" key="card-table-timer" />
-			<CardHand v-for="(hand, index) in hands" :hand="hand" :shoe="cardShoe" :key="`hand-${index}`"
-				:class="getClassForHand(hand,index)" />
+		<CardHand v-for="(hand, index) in hands" :hand="hand" :shoe="cardShoe" :key="`hand-${index}`"
+			:class="getClassForHand(hand, index)" />
 		<ActiveHand v-if="showActiveHand" :activeHand="activeHand" :backwards="backwards" class="active-hand"
 			@correctAnswer="handleCorrectAnswer" :key="`active-${handsStrings[handCounter]}`" />
 		<button v-if="showBeginButton" @click="handleBeginOrReturn" class="active-hand btn-big"
@@ -223,6 +225,7 @@ const getClassForHand = (hand, index) => {
 	transition: all 0.5s ease-in-out;
 	scale: 1.1;
 }
+
 .backwards {
 	transform: rotate(180deg);
 	border-color: chartreuse;
