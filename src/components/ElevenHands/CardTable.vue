@@ -109,15 +109,13 @@ const getClassForHand = (hand, index) => {
 	let classString = ""
 	classString += handsStrings[index]
 	if (isActiveHand(hand)) {
-		classString += backwards.value ? " active-hand backwards" : " active-hand"
+		classString += backwards.value ? " currently-active-hand backwards" : " currently-active-hand"
 	}
 	return classString
 }
 </script>
 
 <template>
-	<!-- <button @click="dealCard" :disabled="cardCounter>=cardShoe.length">Deal</button> -->
-
 	<div class="card-table">
 		<button @click="emit('updateDisplay', 'main')" key="card-table-back-button">Back to main</button>
 		<Timer class="training-timer-container" :shouldRun="!showBeginButton" key="card-table-timer" />
@@ -227,7 +225,7 @@ const getClassForHand = (hand, index) => {
 }
 
 .backwards {
-	transform: rotate(180deg);
+	transform: rotate(360deg);
 	border-color: chartreuse;
 }
 

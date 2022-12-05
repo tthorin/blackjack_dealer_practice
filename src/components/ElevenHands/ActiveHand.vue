@@ -105,6 +105,7 @@ onMounted(() => {
 
 .active-cards {
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: center;
 	align-items: center;
 	position: relative;
@@ -112,8 +113,19 @@ onMounted(() => {
 	margin-right: -70px;
 }
 
-.active-cards> :nth-child(1n+1) {
+.active-cards> :nth-child(1) {
 	margin-left: -70px;
+	margin-top: -35px;
+	z-index: 1;
+}
+.active-cards> :nth-child(2) {
+	margin-left: -70px;
+	z-index: 2;
+}
+.active-cards> :nth-child(3) {
+	margin-left: -70px;
+	margin-bottom: -35px;
+	z-index: 3;
 }
 
 input {
