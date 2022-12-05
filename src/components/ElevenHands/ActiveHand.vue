@@ -1,17 +1,42 @@
 <script setup>
-import { ref, onUpdated,onMounted } from 'vue';
+import { ref, onUpdated, onMounted, computed } from 'vue';
 import PlayingCard from '../PlayingCard.vue';
 
 const props = defineProps({
-	activeHand: Object
+	activeHand: Object,
+	backwards: Boolean
 })
 const emit = defineEmits(['correctAnswer'])
 
-const answerOne = ref(0)
-let answerTwo = ref(0)
+const answerOne = computed(() => getAnswerOne(props.activeHand))
+const answerTwo = computed(() => getAnswerTwo(props.activeHand))
 const attemptOne = ref('')
 const attemptTwo = ref('')
 
+const getAnswerOne = (cards) => {
+	let answer = 0
+	if (props.backwards) {
+		console.log("im doing answerOne Backwards")
+		let numberOfAces = 0
+		cards.forEach(card => {
+			if (card.secondaryValue === 11) {
+				numberOfAces++
+				answer += card.secondaryValue
+			} else {
+				answer += +card.value
+			}
+		})
+		while (answer > 21 && numberOfAces > 0) {
+			answer -= 10
+			numberOfAces--
+		}
+	}
+	else {
+		answer = cards.reduce((a, b) => a + +b.value, 0)
+	}
+
+	return answer
+}
 const getAnswerTwo = (cards) => {
 	let answer = 0
 	cards.forEach(card => {
@@ -32,9 +57,15 @@ const resetInputs = () => {
 	attemptTwo.value = ''
 	inputOne.focus()
 }
+const adjustForBackwardsIfNeeded = (areWeGoingBackwards, answer) => {
+	console.log('adjustForBackwardsIfNeeded, backwards is: ', areWeGoingBackwards)
+	if (answerOne.value !== answerTwo.value && areWeGoingBackwards) {
+		answerOne.value = answerTwo.value
+	}
+}
 onUpdated(() => {
-	answerOne.value = props.activeHand.reduce((a, b) => a + +b.value, 0)
-	answerTwo.value = getAnswerTwo(props.activeHand)
+	// answerOne.value = props.activeHand.reduce((a, b) => a + +b.value, 0)
+	// answerTwo.value = getAnswerTwo(props.activeHand)
 	if (answerOne.value === +attemptOne.value && props.activeHand.length === 2 && (answerTwo.value === answerOne.value || answerTwo.value === +attemptTwo.value)) {
 		emit('correctAnswer', "deal")
 		resetInputs()
@@ -57,7 +88,7 @@ onMounted(() => {
 			<PlayingCard v-for="card in props.activeHand" :card="card" :key="card.id" />
 		</div>
 		<div class="active-inputs">
-			<input v-model="attemptOne" id="answer-one-input"/>
+			<input v-model="attemptOne" id="answer-one-input" />
 			<input v-if="answerOne !== answerTwo && answerTwo <= 21" v-model="attemptTwo" />
 		</div>
 	</div>
@@ -89,7 +120,8 @@ onMounted(() => {
 	/*width: 100%;*/
 	margin-right: -70px;
 }
-.active-cards > :nth-child(1n+1) {
+
+.active-cards> :nth-child(1n+1) {
 	margin-left: -70px;
 }
 
