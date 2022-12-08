@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-import { getShuffledCards } from '../../js/cards'
+import { getShuffledCards as getShuffledCardDecks } from '../../js/cards'
 import Timer from '../Timer.vue';
 import DealerOnlyInstructions from './DealerOnlyInstructions.vue';
 import {updateBestTimes} from '../../js/bestTimes'
 
 const emit = defineEmits(['updateDisplay'])
-let shoe = getShuffledCards(1)
+let shoe = getShuffledCardDecks(3)
 const hand = ref([shoe.pop(), shoe.pop()])
 const cardTotalTwo = computed(() => getCardTotalTwo(hand.value))
 const answers = ref(getAnswers())
@@ -100,7 +100,7 @@ const checkAnswer = (e,answer) => {
 
 const reset = () => {
 	shoe.clear
-	shoe = getShuffledCards(1)
+	shoe = getShuffledCardDecks(1)
 	hand.value = [shoe.pop(), shoe.pop()]
 	wrongAnswers.value = 0
 	gameOver.value = false
