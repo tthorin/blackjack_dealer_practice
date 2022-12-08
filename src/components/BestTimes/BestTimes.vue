@@ -6,6 +6,12 @@ const emit = defineEmits(['updateDisplay'])
 const props = defineProps({
 	bestTimes: Object
 })
+const bestTimesDealerOnly = computed(() => {
+	return props.bestTimes.DealerOnly
+})
+const bestTimesElevenHands = computed(() => {
+	return props.bestTimes.ElevenHands
+})
 
 const bestTimes = ref(localStorage.getItem('bestTimes') ? JSON.parse(localStorage.getItem('bestTimes')) : props.bestTimes)
 
@@ -25,12 +31,21 @@ const getTimeString = (time) => {
 
 <template>
 	<div class="best-times">
-		<h1>UNDER CONSTRUCTION</h1>
-		<h2>Best Times</h2>
-		<h3>Dealer Only:</h3>
+		<h1>Best Times</h1>
+		<h2>Dealer Only:</h2>
 		<div class="best-times-list">
 			<ul >
-				<li v-for="(time,index) in bestTimes" :key="`time-${index}`" class="best-time">
+				<li v-for="(time,index) in bestTimes.DealerOnly" :key="`do-time-${index}`" class="best-time">
+					<span class="best-time-name">{{ time.date }}: </span>
+					<span class="best-time-time">{{ getTimeString(time.time) }}, </span>
+					<span class="best-time-name">{{ time.mistakes }} mistakes. </span>
+				</li>
+			</ul>
+		</div>
+		<h2>Eleven Hands:</h2>
+		<div class="best-times-list">
+			<ul >
+				<li v-for="(time,index) in bestTimes.ElevenHands" :key="`do-time-${index}`" class="best-time">
 					<span class="best-time-name">{{ time.date }}: </span>
 					<span class="best-time-time">{{ getTimeString(time.time) }}, </span>
 					<span class="best-time-name">{{ time.mistakes }} mistakes. </span>

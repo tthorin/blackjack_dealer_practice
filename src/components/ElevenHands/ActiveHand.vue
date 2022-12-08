@@ -1,17 +1,18 @@
 <script setup>
-import { ref, onUpdated, onMounted, computed } from 'vue';
+import { ref, onUpdated, onMounted, computed,watch } from 'vue';
 import PlayingCard from '../PlayingCard.vue';
 
 const props = defineProps({
 	activeHand: Object,
 	backwards: Boolean
 })
-const emit = defineEmits(['correctAnswer'])
+const emit = defineEmits(['correctAnswer', 'madeMistake'])
 
 const answerOne = computed(() => getAnswerOne(props.activeHand))
 const answerTwo = computed(() => getAnswerTwo(props.activeHand))
 const attemptOne = ref('')
 const attemptTwo = ref('')
+let suspendMistakeChecking = false
 
 const getAnswerOne = (cards) => {
 	let answer = 0
@@ -57,13 +58,36 @@ const resetInputs = () => {
 	inputOne.focus()
 }
 
+watch(attemptOne, (newValue) => {
+if (newValue.length === answerOne.value.toString().length
+ && +newValue !== answerOne.value
+ && !suspendMistakeChecking) {
+	console.log("wrong #1")
+	emit('madeMistake')
+}
+})
+watch(attemptTwo, (newValue) => {
+if (newValue.length === answerTwo.value.toString().length
+&& +newValue !== answerTwo.value 
+&& answerTwo.value !== answerOne.value
+&& !suspendMistakeChecking) {
+	console.log("wrong #2")
+	emit('madeMistake')
+}
+})
+watch(()=>props.activeHand.length, () => {
+	suspendMistakeChecking = false
+})
+
 onUpdated(() => {
 	if (answerOne.value === +attemptOne.value && props.activeHand.length === 2 && (answerTwo.value === answerOne.value || answerTwo.value === +attemptTwo.value)) {
+		suspendMistakeChecking = true
+		resetInputs()
 		emit('correctAnswer', "deal")
-		resetInputs()
 	} else if (answerOne.value === +attemptOne.value && (answerTwo.value === answerOne.value || answerTwo.value === +attemptTwo.value || answerTwo.value > 21) && props.activeHand.length === 3) {
-		emit("correctAnswer", "nextHand")
+		suspendMistakeChecking = true
 		resetInputs()
+		emit("correctAnswer", "nextHand")
 	}
 })
 onMounted(() => {
@@ -78,9 +102,9 @@ onMounted(() => {
 		<div class="active-cards">
 			<PlayingCard v-for="card in props.activeHand" :card="card" :key="card.id" />
 		</div>
-		<div class="active-inputs">
-			<input v-model="attemptOne" id="answer-one-input" type="tel"/>
-			<input v-if="answerOne !== answerTwo && answerTwo <= 21" v-model="attemptTwo" type="tel"/>
+		<div class="active-inputs" :class="props.backwards ? 'backwards' : ''">
+			<input v-model="attemptOne" id="answer-one-input" type="tel" />
+			<input v-if="answerOne !== answerTwo && answerTwo <= 21" v-model="attemptTwo" type="tel" />
 		</div>
 	</div>
 </template>
@@ -101,6 +125,8 @@ onMounted(() => {
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	border: 5px solid purple;
+	border-radius: 10px;
 }
 
 .active-cards {
@@ -118,10 +144,12 @@ onMounted(() => {
 	margin-top: -35px;
 	z-index: 1;
 }
+
 .active-cards> :nth-child(2) {
 	margin-left: -70px;
 	z-index: 2;
 }
+
 .active-cards> :nth-child(3) {
 	margin-left: -70px;
 	margin-bottom: -35px;
@@ -133,5 +161,9 @@ input {
 	font-size: 2rem;
 	margin: 1rem;
 	text-align: center;
+}
+
+.backwards {
+	border-color: chartreuse;
 }
 </style>

@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed, watchEffect, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { getShuffledCards } from '../../js/cards'
-import PlayingCard from '../PlayingCard.vue';
 import Timer from '../Timer.vue';
 import DealerOnlyInstructions from './DealerOnlyInstructions.vue';
+import {updateBestTimes} from '../../js/bestTimes'
 
 const emit = defineEmits(['updateDisplay'])
 let shoe = getShuffledCards(1)
@@ -97,22 +97,7 @@ const checkAnswer = (e,answer) => {
 		wrongAnswers.value++
 	}
 }
-const updateBestTimes = (time) => {
-	let newBestTimes = JSON.parse(localStorage.getItem("bestTimes"))
-	const today = new Date()
-	const date = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, 0) + '-' + today.getDate().toString().padStart(2, '0')
-	const entry = {
-		date: date,
-		time: time,
-		mistakes: wrongAnswers.value
-	}
-	if (newBestTimes === null) {
-		newBestTimes = []
-	}
-	newBestTimes.push(entry)
-	newBestTimes.sort((a, b) => a.mistakes - b.mistakes || a.time - b.time)
-	localStorage.setItem("bestTimes", JSON.stringify(newBestTimes.slice(0, 5)))
-}
+
 const reset = () => {
 	shoe.clear
 	shoe = getShuffledCards(1)
@@ -129,7 +114,7 @@ const reset = () => {
 	<span @click="showInstructions = !showInstructions" class="instructions-button">{{ showInstructions ? "←" : "?"
 	}}</span>
 	<div v-if="!showInstructions">
-		<Timer :shouldRun="timerShouldRun" :shouldReset="resetTimer" @timeAtStop="(time) => updateBestTimes(time)"
+		<Timer :shouldRun="timerShouldRun" :shouldReset="resetTimer" @timeAtStop="(time) => updateBestTimes(time,wrongAnswers,'DealerOnly')"
 			@timerReset="() => resetTimer = false" />
 		<div v-if="!gameOver" class="dealer-only-container">
 			<div class="dealer-only-card-hand">
