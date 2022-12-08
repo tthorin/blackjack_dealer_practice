@@ -5,22 +5,15 @@ import ShuffleDisplay from './components/ShuffleDisplay.vue';
 import CardTable from './components/ElevenHands/CardTable.vue';
 import BestTimes from './components/BestTimes/BestTimes.vue';
 import DealerOnly from './components/DealerOnly/DealerOnly.vue';
-import bestTimes from './js/bestTimes';
+import {getBestTimes} from './js/bestTimes';
 
 
 const display = ref("main")
 const shoe = ref(generateCards())
-const best = getBestTimes()
+const bestTimesVersion = 0.2
+const best = getBestTimes(bestTimesVersion)
 
-function getBestTimes() {
-	let value = localStorage.getItem("bestTimes")
-	if (!value) {
-		localStorage.setItem("bestTimes", JSON.stringify(bestTimes))
-		value = localStorage.getItem("bestTimes")
-		console.log("added to localStorage")
-	}
-	return JSON.parse(value)
-}
+
 </script>
 
 <template>

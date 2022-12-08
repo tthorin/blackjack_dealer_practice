@@ -9,11 +9,14 @@ const emit = defineEmits(['timeAtStop','timerReset'])
 const running = ref(false)
 const time = ref(0)
 const interval = ref(null)
+let startTime = 0;
 
 const start = () => {
 	running.value = true
+	startTime = Date.now()
 	interval.value = setInterval(() => {
-		time.value++
+		const elapsed = Date.now() - startTime
+		time.value = Math.floor(elapsed / 100)
 	}, 100)
 }
 
@@ -24,6 +27,7 @@ const stop = () => {
 }
 const reset = () => {
 	console.log("timer component reset got called")
+	startTime = 0
 	time.value = 0
 	emit('timerReset')
 }
