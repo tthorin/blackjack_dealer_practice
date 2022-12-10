@@ -89,6 +89,9 @@ button:focus-visible {
   flex-direction: column;
   place-items: center;
 }
+.card-hand{
+	border: 5px solid antiquewhite;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -99,6 +102,10 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #e6e5e5;
+  }
+  
+  .card-hand{
+	border-color: #213547;
   }
 }
