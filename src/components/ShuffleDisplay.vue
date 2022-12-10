@@ -16,8 +16,6 @@ let cardCounter = 0;
 const deal = (shoe) => {
 	hand.value.push(shoe[cardCounter])
 	cardCounter++
-// 	console.log(hand.value.reduce((a, b) => a + +b.value, 0))
-// 	console.log(hand.value.reduce((a, b) => a + +b.secondaryValue, 0))
 }
 const goToMain = () => {
 	emit('updateDisplay', "main")
@@ -32,7 +30,6 @@ const dealCard = () => {
 		<button @click="goToMain">Go to main page</button>
 		<button @click="shuffleCards(shoe)">Shuffle cards</button>
 		<transition-group tag="div" :name="shuffleSpeed" class="card-container">
-			<!--<cardVue v-for="card.imgage in shoe" :card="card" :key="card.id" />-->
 			<img v-for="card in shoe"  :key="card.id" :src="card.image"/>
 		</transition-group>
 	</div>

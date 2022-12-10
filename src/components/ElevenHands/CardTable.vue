@@ -254,11 +254,6 @@ const getClassForHand = (hand, index) => {
 }
 
 .backwards {
-	transform: rotate(360deg);
 	border-color: chartreuse;
-}
-
-.card-table-trans-move {
-	transition: all 5s;
 }
 </style>
