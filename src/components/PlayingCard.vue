@@ -6,11 +6,7 @@ defineProps({
 
 <template>
 	<div class="card" :class="card.color">
-		<img class="card-img" :src="card.image"/>
-		<!--<span class="card_suit card_suit_top">{{ card.suit }}</span>
-		<span class="card_value">{{ card.display }}</span>
-		<span>{{card.id}}</span> This is just for debugging
-		<span class="card_suit card_suit_bottom">{{ card.suit }}</span>-->
+		<img class="card-img" :src="card.image" />
 	</div>
 </template>
 
@@ -18,16 +14,17 @@ defineProps({
 .card {
 	width: 119px;
 	height: 169px;
-	border-radius: 10px;
+	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0px;
-	margin: 10px;
+	margin: -4px;
 	border: 2px solid black;
 }
-.card>img{
+
+.card>img {
 	width: 100%;
 	height: 100%;
 }
@@ -56,17 +53,31 @@ defineProps({
 	align-self: flex-end;
 	transform: rotate(180deg);
 }
+
 @media (max-width: 768px) {
 	.card {
 		width: 55px;
 		height: 80px;
 		padding: 4px;
 	}
-	.card_suit{
+
+	.card_suit {
 		font-size: 1.5em;
 	}
-	.card_value{
+
+	.card_value {
 		font-size: 2em;
 	}
+}
+
+@media (max-width: 1919px) {
+	.card {
+		width: calc(119px*0.8);
+		height: calc(169px*0.8);
+	}
+	input {
+		margin: 8px;
+	}
+
 }
 </style>

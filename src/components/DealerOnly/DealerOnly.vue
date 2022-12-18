@@ -236,6 +236,4 @@ img {
 		transition: all 0.1s;
 	}
 }
-
-@media (max-width: 768px) {}
 </style>

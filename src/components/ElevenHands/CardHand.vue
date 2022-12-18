@@ -25,7 +25,6 @@ const cardShoe = props.shoe;
 	flex-direction: row-reverse;
 	/*width: 100vw; */
 	margin: 0em;
-	border: 5px solid antiquewhite;
 	border-radius: 15px;
 	padding: 10px;
 	min-height: 125px;

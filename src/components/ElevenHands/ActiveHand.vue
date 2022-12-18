@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUpdated, onMounted, computed,watch } from 'vue';
+import { ref, onUpdated, onMounted, computed, watch } from 'vue';
 import PlayingCard from '../PlayingCard.vue';
 
 const props = defineProps({
@@ -59,23 +59,23 @@ const resetInputs = () => {
 }
 
 watch(attemptOne, (newValue) => {
-if (newValue.length === answerOne.value.toString().length
- && +newValue !== answerOne.value
- && !suspendMistakeChecking) {
-	console.log("wrong #1")
-	emit('madeMistake')
-}
+	if (newValue.length === answerOne.value.toString().length
+		&& +newValue !== answerOne.value
+		&& !suspendMistakeChecking) {
+		console.log("wrong #1")
+		emit('madeMistake')
+	}
 })
 watch(attemptTwo, (newValue) => {
-if (newValue.length === answerTwo.value.toString().length
-&& +newValue !== answerTwo.value 
-&& answerTwo.value !== answerOne.value
-&& !suspendMistakeChecking) {
-	console.log("wrong #2")
-	emit('madeMistake')
-}
+	if (newValue.length === answerTwo.value.toString().length
+		&& +newValue !== answerTwo.value
+		&& answerTwo.value !== answerOne.value
+		&& !suspendMistakeChecking) {
+		console.log("wrong #2")
+		emit('madeMistake')
+	}
 })
-watch(()=>props.activeHand.length, () => {
+watch(() => props.activeHand.length, () => {
 	suspendMistakeChecking = false
 })
 
@@ -165,5 +165,29 @@ input {
 
 .backwards {
 	border-color: chartreuse;
+}
+
+@media (max-width: 1919px) {
+	input {
+		margin: 0.5rem;
+	}
+
+	.active-cards> :nth-child(1) {
+		margin-left: -50px;
+		margin-top: -10px;
+		z-index: 1;
+	}
+
+	.active-cards> :nth-child(2) {
+		margin-left: -50px;
+		margin-bottom: -35px;
+		z-index: 2;
+	}
+
+	.active-cards> :nth-child(3) {
+		margin-left: -50px;
+		margin-bottom: -75px;
+		z-index: 3;
+	}
 }
 </style>
