@@ -1,12 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { generateCards, getShuffledCards } from './js/cards'
-import ShuffleDisplay from './components/ShuffleDisplay.vue';
+import ShuffleDisplay from './components/ShuffleDisplay/ShuffleDisplay.vue';
 import CardTable from './components/ElevenHands/CardTable.vue';
 import BestTimes from './components/BestTimes/BestTimes.vue';
 import DealerOnly from './components/DealerOnly/DealerOnly.vue';
 import {getBestTimes} from './js/bestTimes';
-
 
 const display = ref("main")
 const shoe = ref(generateCards())
