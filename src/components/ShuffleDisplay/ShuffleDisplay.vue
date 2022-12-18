@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import { shuffleCards } from '../js/cards'
-import cardVue from './PlayingCard.vue';
+import { shuffleCards } from '../../js/cards'
+import cardVue from '../PlayingCard.vue';
 
 const props = defineProps({
 	shoe: Object,
