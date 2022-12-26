@@ -29,7 +29,7 @@ const timerShouldRun = ref(false)
 const showInstructions = ref(false)
 
 const handsStrings = ["hand-one", "hand-two", "hand-three", "hand-four", "hand-five", "hand-six", "hand-seven", "hand-eight", "hand-nine", "hand-ten", "hand-eleven", "hand-dealer", "card-shoe"]
-const hands = [handOne, handTwo, handThree, handFour, handFive, handSix, handSeven, handEight, handNine, handTen, handEleven, handDealer, cardShoe]
+const hands = [handOne, handTwo, handThree, handFour, handFive, handSix, handSeven, handEight, handNine, handTen, handEleven, handDealer,cardShoe]
 
 let handCounter = 0
 const showActiveHand = ref(false)
@@ -45,7 +45,6 @@ let beginOrReturnBtnMsg = ref("Begin")
 
 const dealCard = async (i) => {
 	setTimeout(() => {
-		console.log("dealCard")
 		const card = cardShoe.value.pop()
 		card.hand = currentHand
 		hands[dealTo].value.push(card)
@@ -103,7 +102,7 @@ const handleBeginOrReturn = () => {
 
 onMounted(async () => {
 	const numberOfStartingCards = 23
-	const delayInMs = 1500
+	const delayInMs = 700
 
 	for (let i = 0; i < numberOfStartingCards; i++) {
 		dealCard(delayInMs * i)
