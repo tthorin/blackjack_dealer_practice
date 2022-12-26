@@ -63,14 +63,21 @@ const cardShoe = props.shoe;
 }
 
 .shoe-card{
+	image-rendering: none;
 	grid-column: 1;
 	grid-row: 1;
 	color: rgba(245, 245, 245, 0);
 	background-color: red;
-	background-image: url('../../assets/red_back.svg');
 	background-size: auto 82px;
 	width:58px;
-	/*scale: 2;*/
+}
+.shoe > :nth-last-child(-n+2){
+	z-index: 2;
+	background-image: url('../../assets/red_back.svg');
+}
+.shoe > :nth-child(1){
+	z-index: 1;
+	background-image: url('../../assets/red_back.svg');
 }
 
 </style>
