@@ -23,6 +23,7 @@ const cardShoe = props.shoe;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row-reverse;
+	justify-content: center;
 	/*width: 100vw; */
 	margin: 0em;
 	border-radius: 15px;
@@ -35,16 +36,17 @@ const cardShoe = props.shoe;
 .card-hand > :nth-child(1) {
 	position: absolute;
 	bottom: 24px;
+	left: 50px;
 }
 .card-hand > :nth-child(2) {
 	position: absolute;
 	z-index: 2;
-	right: 40px;
+	right: 35px;
 }
 .card-hand > :nth-child(3) {
 	position: absolute;
 	top: 24px;
-	right: 70px;
+	right: 50px;
 	z-index: 3;
 }
 .addCard-move,
@@ -52,7 +54,10 @@ const cardShoe = props.shoe;
 .addCard-enter-active {
 	transition: all 0.9s;
 }
-.addCard-enter-from,
+.addCard-enter-from{
+	opacity: 0;
+	transform: translateX(-100px) ;
+}
 .addCard-leave-to {
 	opacity: 0;
 	transform: translateX(100px) ;
@@ -79,5 +84,4 @@ const cardShoe = props.shoe;
 	z-index: 1;
 	background-image: url('../../assets/red_back.svg');
 }
-
 </style>
