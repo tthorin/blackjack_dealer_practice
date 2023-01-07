@@ -6,7 +6,7 @@ import DealerOnlyInstructions from './DealerOnlyInstructions.vue';
 import {updateBestTimes} from '../../js/bestTimes'
 
 const emit = defineEmits(['updateDisplay'])
-let shoe = getShuffledCardDecks(3)
+let shoe = getShuffledCardDecks(2)
 const hand = ref([shoe.pop(), shoe.pop()])
 const cardTotalTwo = computed(() => getCardTotalTwo(hand.value))
 const answers = ref(getAnswers())
