@@ -140,13 +140,14 @@ onMounted(() => {
 }
 
 .active-cards> :nth-child(1) {
-	margin-left: -70px;
+	margin-left: -90px;
 	margin-top: -35px;
 	z-index: 1;
 }
 
 .active-cards> :nth-child(2) {
-	margin-left: -70px;
+	margin-left: -50px;
+	margin-top: 10px;
 	z-index: 2;
 }
 
@@ -173,19 +174,19 @@ input {
 	}
 
 	.active-cards> :nth-child(1) {
-		margin-left: -50px;
+		margin-left: -70px;
 		margin-top: -10px;
 		z-index: 1;
 	}
 
 	.active-cards> :nth-child(2) {
-		margin-left: -50px;
-		margin-bottom: -35px;
+		margin-left: -70px;
+		margin-bottom: -20px;
 		z-index: 2;
 	}
 
 	.active-cards> :nth-child(3) {
-		margin-left: -50px;
+		margin-left: -80px;
 		margin-bottom: -75px;
 		z-index: 3;
 	}
